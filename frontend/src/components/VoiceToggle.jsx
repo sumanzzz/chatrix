@@ -35,6 +35,7 @@ const VoiceToggle = () => {
         rec.continuous = true;
         rec.interimResults = true;
         rec.lang = navigator.language || 'en-US';
+        let lastResultTime = Date.now();
         rec.onresult = (event) => {
           let finalText = '';
           for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -43,8 +44,10 @@ const VoiceToggle = () => {
           }
           if (finalText.trim().length > 0) {
             // Emit transcript to server
+            const currentRoomId = window.currentRoomId;
+            if (!currentRoomId) return;
             socket.emit('speech_transcript', {
-              roomId: window.currentRoomId,
+              roomId: currentRoomId,
               transcript: finalText.trim(),
               detectedLang: rec.lang
             }, (ack) => {
@@ -52,10 +55,16 @@ const VoiceToggle = () => {
                 push('Transcript failed to send', 'warning');
               }
             });
+            lastResultTime = Date.now();
           }
         };
         rec.onerror = () => {};
-        rec.onend = () => { /* auto-restart could be added */ };
+        rec.onend = () => {
+          // Auto-restart if voice is still enabled
+          if (isVoiceEnabled && window.currentRoomId) {
+            try { rec.start(); } catch(e){}
+          }
+        };
         rec.start();
         setRecognition(rec);
       } catch (error) {

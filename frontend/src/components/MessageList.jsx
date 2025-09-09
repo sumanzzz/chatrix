@@ -73,7 +73,7 @@ const MessageList = ({ messages, currentUser }) => {
               return (
                 <div
                   key={message.id}
-                  className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} animate-fade-in`}
+                  className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`flex max-w-[70%] ${isCurrentUser ? 'flex-row-reverse' : 'flex-row'}`}>
                     {/* Avatar */}

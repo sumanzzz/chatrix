@@ -30,16 +30,35 @@ export const RoomProvider = ({ children }) => {
   useEffect(() => {
     if (!socket) return;
 
+    const isRoomsChanged = (prev, next) => {
+      if (!Array.isArray(prev) || !Array.isArray(next)) return true;
+      if (prev.length !== next.length) return true;
+      for (let i = 0; i < next.length; i++) {
+        const a = prev[i];
+        const b = next[i];
+        if (!a || !b) return true;
+        if (a.id !== b.id) return true;
+        if ((a.userCount || 0) !== (b.userCount || 0)) return true;
+        if (a.name !== b.name) return true;
+        if (a.locked !== b.locked) return true;
+      }
+      return false;
+    };
+
     const handleRoomUpdate = (data) => {
-      if (data.rooms) setRooms(data.rooms);
-      if (data.room) setRooms(prev => prev.map(r => r.id === data.room.id ? data.room : r));
+      if (data.rooms) {
+        setRooms(prev => (isRoomsChanged(prev, data.rooms) ? data.rooms : prev));
+      }
+      if (data.room) {
+        setRooms(prev => prev.map(r => r.id === data.room.id ? data.room : r));
+      }
     };
 
     const handleUserJoined = (data) => {
       setRooms(prev => 
         prev.map(room => 
           room.id === data.roomId 
-            ? { ...room, userCount: data.users.length }
+            ? { ...room, userCount: Math.max(1, (room.userCount || 0) + 1) }
             : room
         )
       );
@@ -49,7 +68,7 @@ export const RoomProvider = ({ children }) => {
       setRooms(prev => 
         prev.map(room => 
           room.id === data.roomId 
-            ? { ...room, userCount: Math.max(0, room.userCount - 1) }
+            ? { ...room, userCount: Math.max(0, (room.userCount || 1) - 1) }
             : room
         )
       );

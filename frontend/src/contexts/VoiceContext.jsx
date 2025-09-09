@@ -120,7 +120,7 @@ export const VoiceProvider = ({ children }) => {
       peer.onicecandidate = (event) => {
         if (event.candidate) {
           socket.emit('webrtc-signal', {
-            roomId: socket.id, // This should be the current room ID
+            roomId: window.currentRoomId, // use the actual current room id
             signal: {
               type: 'ice-candidate',
               candidate: event.candidate
@@ -152,7 +152,7 @@ export const VoiceProvider = ({ children }) => {
         peer.createOffer().then(offer => {
           peer.setLocalDescription(offer);
           socket.emit('webrtc-signal', {
-            roomId: socket.id, // This should be the current room ID
+            roomId: window.currentRoomId, // use the actual current room id
             signal: offer,
             targetSocketId: socketId
           });

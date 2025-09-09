@@ -3,7 +3,7 @@ import { Tag, Lock, Users, ArrowLeft } from 'lucide-react';
 import { useRoom } from '../contexts/RoomContext';
 
 const CreateRoom = ({ onRoomCreated, onBack }) => {
-  const { createRoom } = useRoom();
+  const { createRoom, joinRoom } = useRoom();
   const [formData, setFormData] = useState({
     name: '',
     tags: [],
@@ -59,7 +59,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
         throw new Error('Maximum 10 tags allowed');
       }
 
-      // Create room
+      // Create room on server
       const room = await createRoom({
         name: formData.name.trim(),
         tags: formData.tags,
@@ -67,8 +67,9 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
         password: formData.locked ? formData.password : undefined
       });
 
-      // Join the created room
-      onRoomCreated(room, `anonymous${Math.floor(Math.random() * 1000)}`);
+      // Join the created room to ensure server session and history
+      const joinRes = await joinRoom(room.id, formData.locked ? formData.password : null);
+      onRoomCreated(joinRes.room, joinRes.assignedName);
 
     } catch (err) {
       setError(err.message);

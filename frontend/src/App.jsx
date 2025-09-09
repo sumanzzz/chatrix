@@ -74,41 +74,47 @@ const App = () => {
         <RoomProvider>
           <VoiceProvider>
           <div className="min-h-screen bg-white">
-            {/* Header */}
-            <header className="bg-chatrix-primary border-b-2 border-chatrix-border">
-              <div className="container mx-auto px-4 py-4">
+            {/* Accessible Sticky Navbar */}
+            <header className="sticky top-0 z-40 bg-chatrix-primary border-b-2 border-chatrix-border">
+              <nav className="container mx-auto px-4 py-4" aria-label="Main">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-bold text-white">
+                  <button
+                    className="text-2xl font-bold text-white"
+                    onClick={handleBackToRooms}
+                    aria-label="Go to rooms list"
+                  >
                     Chatrix
-                  </h1>
-                  <div className="flex items-center space-x-4">
+                  </button>
+                  <div className="flex items-center gap-2" role="tablist" aria-label="Views">
+                    <button
+                      role="tab"
+                      aria-selected={currentView === 'rooms'}
+                      onClick={handleBackToRooms}
+                      className={`chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary ${currentView === 'rooms' ? '' : ''}`}
+                    >
+                      Rooms
+                    </button>
+                    <button
+                      role="tab"
+                      aria-selected={currentView === 'create'}
+                      onClick={handleCreateRoom}
+                      className={`chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary ${currentView === 'create' ? '' : ''}`}
+                    >
+                      Create
+                    </button>
                     {currentView === 'chat' && (
                       <button
+                        role="tab"
+                        aria-selected
                         onClick={handleLeaveRoom}
-                        className="chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
+                        className="chatrix-button bg-white text-chatrix-primary border-chatrix-primary"
                       >
                         Leave Room
                       </button>
                     )}
-                    {currentView === 'create' && (
-                      <button
-                        onClick={handleBackToRooms}
-                        className="chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
-                      >
-                        Back to Rooms
-                      </button>
-                    )}
-                    {currentView === 'rooms' && (
-                      <button
-                        onClick={handleCreateRoom}
-                        className="chatrix-button bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
-                      >
-                        Create Room
-                      </button>
-                    )}
                   </div>
                 </div>
-              </div>
+              </nav>
             </header>
 
             {/* Main Content */}

@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for Chatrix Dark Theme (Blue/White variant) */
+/* High-contrast Light Theme */
 :root {
   --bg: #ffffff;
-  --primary-100: #3b82f6; /* blue-500 */
-  --primary-200: #1e3a8a; /* blue-900 for card bg */
-  --primary-300: #0b5ed7; /* deeper blue */
+  --primary-100: #0ea5e9; /* sky-500 */
+  --primary-200: #0284c7; /* sky-600 */
+  --primary-300: #0369a1; /* sky-700 */
   --text-on-primary: #ffffff;
-  --chatrix-shadow: rgba(0, 0, 0, 0.5);
-  --chatrix-border: #60a5fa;
+  --chatrix-shadow: rgba(0, 0, 0, 0.15);
+  --chatrix-border: #0ea5e9;
 }
 
 /* Global Styles */
@@ -54,72 +54,72 @@ html, body, * {
 @layer components {
   .chatrix-card {
     background: #f8fafc;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
     border-radius: 0.75rem;
-    box-shadow: 0 10px 25px var(--chatrix-shadow);
+    box-shadow: 0 6px 16px var(--chatrix-shadow);
   }
   
   .chatrix-button {
     background: var(--primary-300);
     color: var(--text-on-primary);
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(255,255,255,0.15);
-    transition: none;
-  }
-  .chatrix-button:hover { background: var(--primary-100); box-shadow: none; }
-  
-  .chatrix-button-secondary {
-    background: transparent;
-    color: var(--primary-300);
-    font-weight: 600;
+    font-weight: 700;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 2px solid var(--primary-300);
-    transition: all 0.2s ease;
+    transition: none;
   }
-  .chatrix-button-secondary:hover { background: rgba(255,255,255,0.08); }
+  .chatrix-button:hover { background: var(--primary-200); border-color: var(--primary-200); box-shadow: none; }
+  
+  .chatrix-button-secondary {
+    background: #ffffff;
+    color: var(--primary-300);
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--primary-300);
+    transition: none;
+  }
+  .chatrix-button-secondary:hover { background: #e0f2fe; }
   
   .chatrix-input {
     background: #ffffff;
-    border: 2px solid rgba(0,0,0,0.12);
+    border: 2px solid #cbd5e1;
     color: #0b0b0b;
     border-radius: 0.5rem;
     padding: 0.5rem 0.75rem;
-    transition: border-color 0.2s ease;
+    transition: none;
   }
   .chatrix-input::placeholder { color: rgba(0,0,0,0.45); }
   .chatrix-input:focus { outline: none; border-color: var(--primary-100); }
   
   .chatrix-message {
     background: #e0f2fe;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid #bae6fd;
     border-radius: 0.5rem;
     padding: 0.75rem;
     margin-bottom: 0.5rem;
-    box-shadow: 0 4px 10px var(--chatrix-shadow);
+    box-shadow: none;
   }
   
   .chatrix-room-card {
-    background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
-    border: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 0.75rem;
     padding: 1rem;
     transition: none;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     transform: none;
   }
-  .chatrix-room-card:hover { border-color: var(--primary-100); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
+  .chatrix-room-card:hover { border-color: var(--primary-100); box-shadow: 0 0 0 2px #e0f2fe inset; }
   .chatrix-room-card.pulse { animation: none; }
   
   .chatrix-tag {
-    background: #e2e8f0; color: #0b0b0b; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid rgba(0,0,0,0.06);
+    background: #e2e8f0; color: #0b0b0b; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid #cbd5e1;
   }
   
   .chatrix-notification {
-    background: #eff6ff; border: 1px solid #93c5fd; color: #0b0b0b; padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; animation: fadeIn 0.2s ease-in-out;
+    background: #f0f9ff; border: 1px solid #7dd3fc; color: #0b0b0b; padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem;
   }
 }
 

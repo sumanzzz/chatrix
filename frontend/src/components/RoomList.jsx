@@ -16,7 +16,14 @@ const RoomList = ({ onJoinRoom }) => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    loadRooms({ search: searchTerm, tags: selectedTags });
+    const controller = new AbortController();
+    const t = setTimeout(() => {
+      loadRooms({ search: searchTerm, tags: selectedTags });
+    }, 150);
+    return () => {
+      clearTimeout(t);
+      controller.abort();
+    };
   }, [searchTerm, selectedTags, loadRooms]);
 
   const handleJoinRoom = async (room) => {
@@ -131,7 +138,7 @@ const RoomList = ({ onJoinRoom }) => {
         {rooms.map((room) => (
           <div
             key={room.id}
-            className={`chatrix-room-card ${room.userCount > 0 ? '' : ''}`}
+            className={`chatrix-room-card`}
             onClick={() => handleJoinRoom(room)}
           >
             {/* Door number badge */}

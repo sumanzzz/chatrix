@@ -30,6 +30,16 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
   };
 
   useEffect(() => {
+    // Expose current room id globally for voice/transcription modules
+    window.currentRoomId = room.id;
+    return () => {
+      if (window.currentRoomId === room.id) {
+        delete window.currentRoomId;
+      }
+    };
+  }, [room.id]);
+
+  useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
