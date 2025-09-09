@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useRef, useCallback } from 'react';
 import { useSocket } from './SocketContext';
+import { useToaster } from '../components/Toaster';
 
 const VoiceContext = createContext();
 
@@ -13,6 +14,7 @@ export const useVoice = () => {
 
 export const VoiceProvider = ({ children }) => {
   const socket = useSocket();
+  const { push } = useToaster();
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -40,7 +42,7 @@ export const VoiceProvider = ({ children }) => {
       
     } catch (error) {
       console.error('Error accessing microphone:', error);
-      alert('Could not access microphone. Please check permissions.');
+      push('Microphone permission is required or blocked by the browser.', 'warning');
     } finally {
       setIsConnecting(false);
     }

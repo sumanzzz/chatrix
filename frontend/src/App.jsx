@@ -59,7 +59,7 @@ const App = () => {
 
   if (!socket) {
     return (
-      <div className="min-h-screen bg-chatrix-red flex items-center justify-center">
+      <div className="min-h-screen bg-[#0b0b0b] flex items-center justify-center">
         <div className="text-center">
           <div className="spinner mx-auto mb-4"></div>
           <p className="text-chatrix-text text-lg">Connecting to Chatrix...</p>
@@ -73,9 +73,9 @@ const App = () => {
       <ToasterProvider>
         <RoomProvider>
           <VoiceProvider>
-          <div className="min-h-screen bg-chatrix-red">
+          <div className="min-h-screen bg-[#0b0b0b]">
             {/* Header */}
-            <header className="bg-chatrix-darker-red border-b-2 border-chatrix-border">
+            <header className="bg-chatrix-darker border-b-2 border-chatrix-border">
               <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                   <h1 className="text-2xl font-bold text-chatrix-text">
@@ -129,7 +129,7 @@ const App = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-chatrix-darker-red border-t-2 border-chatrix-border mt-auto">
+            <footer className="bg-chatrix-darker border-t-2 border-chatrix-border mt-auto">
               <div className="container mx-auto px-4 py-4">
                 <p className="text-center text-chatrix-text text-sm">
                   Chatrix - Real-time Anonymous Chatrooms | No signup required

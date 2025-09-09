@@ -45,27 +45,38 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
 
     const handleUserJoined = (data) => {
       if (data.roomId === room.id) {
-        setUsers(data.users);
+        // Append system message and refresh room state separately
         setMessages(prev => [...prev, {
           id: `system-${Date.now()}`,
           from: 'system',
-          text: `${data.user} joined the room`,
+          text: `${data.user.anonName} joined the room`,
           timestamp: new Date(),
           isSystem: true
         }]);
+        // Refresh user list
+        socket.emit('get_room_state', { roomId: room.id }, (info) => {
+          if (info?.success) {
+            setUsers(info.room.users);
+          }
+        });
       }
     };
 
     const handleUserLeft = (data) => {
       if (data.roomId === room.id) {
-        setUsers(prev => prev.filter(user => user.anonName !== data.user));
         setMessages(prev => [...prev, {
           id: `system-${Date.now()}`,
           from: 'system',
-          text: `${data.user} left the room`,
+          text: `${data.user.anonName} left the room`,
           timestamp: new Date(),
           isSystem: true
         }]);
+        // Refresh user list
+        socket.emit('get_room_state', { roomId: room.id }, (info) => {
+          if (info?.success) {
+            setUsers(info.room.users);
+          }
+        });
       }
     };
 
@@ -107,14 +118,14 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
 
     const handleKicked = (data) => {
       if (data.roomId === room.id) {
-        alert(`You were kicked: ${data.reason}`);
+        push(`You were kicked: ${data.reason}`, 'warning');
         onLeaveRoom();
       }
     };
 
     const handleBanned = (data) => {
       if (data.roomId === room.id) {
-        alert(`You were banned: ${data.reason}`);
+        push(`You were banned: ${data.reason}`, 'error');
         onLeaveRoom();
       }
     };
@@ -138,8 +149,8 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
     socket.on('banned', handleBanned);
     socket.on('speech_transcript_broadcast', handleTranscript);
 
-    // Get room info
-    socket.emit('get_room_info', { roomId: room.id }, handleRoomInfo);
+    // Get room state according to contract
+    socket.emit('get_room_state', { roomId: room.id }, handleRoomInfo);
 
     return () => {
       socket.off('message', handleMessage);
@@ -158,9 +169,22 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
+    const optimistic = {
+      id: `temp-${Date.now()}`,
+      from: userName,
+      text: newMessage.trim(),
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, optimistic]);
+
     socket.emit('send_message', { roomId: room.id, text: newMessage.trim() }, (response) => {
-      if (!response.success) {
-        push(response.error || 'Failed to send message', 'error');
+      if (!response?.success) {
+        // remove optimistic and notify
+        setMessages(prev => prev.filter(m => m.id !== optimistic.id));
+        push(response?.error || 'Failed to send message', 'error');
+      } else {
+        // replace optimistic with server message
+        setMessages(prev => prev.map(m => m.id === optimistic.id ? response.message : m));
       }
     });
 

@@ -123,13 +123,14 @@ export function setupSocketHandlers(io) {
         // Leave current room if in one
         const currentRoom = roomManager.getUserRoom(socket.id);
         if (currentRoom) {
+          const prevUser = currentRoom.users.get(socket.id);
           socket.leave(currentRoom.id);
           roomManager.leaveRoom(socket.id);
-          
+
           // Notify room about user leaving
           socket.to(currentRoom.id).emit('user_left', {
             roomId: currentRoom.id,
-            user: currentRoom.users.get(socket.id)?.anonName
+            user: { anonName: prevUser?.anonName, socketId: socket.id }
           });
         }
 
@@ -170,12 +171,13 @@ export function setupSocketHandlers(io) {
 
         const result = roomManager.leaveRoom(socket.id);
         if (result.success) {
+          const prevUser = currentRoom.users.get(socket.id);
           socket.leave(currentRoom.id);
-          
+
           // Notify room about user leaving
           socket.to(currentRoom.id).emit('user_left', {
             roomId: currentRoom.id,
-            user: { anonName: currentRoom.users.get(socket.id)?.anonName, socketId: socket.id }
+            user: { anonName: prevUser?.anonName, socketId: socket.id }
           });
         }
 
@@ -394,11 +396,12 @@ export function setupSocketHandlers(io) {
     // Handle disconnection
     socket.on('disconnect', () => {
       console.log(`User disconnected: ${socket.id}`);
-      
+
       const currentRoom = roomManager.getUserRoom(socket.id);
       if (currentRoom) {
+        const prevUser = currentRoom.users.get(socket.id);
         // Notify room about user leaving
-        socket.to(currentRoom.id).emit('user_left', { roomId: currentRoom.id, user: { anonName: currentRoom.users.get(socket.id)?.anonName, socketId } });
+        socket.to(currentRoom.id).emit('user_left', { roomId: currentRoom.id, user: { anonName: prevUser?.anonName, socketId: socket.id } });
       }
       
       // Clean up user data

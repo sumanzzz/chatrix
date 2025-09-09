@@ -121,7 +121,7 @@ const RoomList = ({ onJoinRoom }) => {
 
       {/* Error Message */}
       {error && (
-        <div className="chatrix-notification mb-6 bg-red-600 border-red-400">
+        <div className="chatrix-notification mb-6 bg-blue-700 border-blue-400">
           {error}
         </div>
       )}

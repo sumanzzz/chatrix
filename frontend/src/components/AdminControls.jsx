@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Ban, UserX, Shield, AlertTriangle } from 'lucide-react';
 import { useSocket } from '../contexts/SocketContext';
+import { useToaster } from './Toaster';
 
 const AdminControls = ({ roomId, users }) => {
   const socket = useSocket();
+  const { push } = useToaster();
   const [selectedUser, setSelectedUser] = useState(null);
   const [showKickModal, setShowKickModal] = useState(false);
   const [showBanModal, setShowBanModal] = useState(false);
@@ -33,7 +35,7 @@ const AdminControls = ({ roomId, users }) => {
         setShowKickModal(false);
         setSelectedUser(null);
       } else {
-        alert(`Failed to kick user: ${response.error}`);
+        push(`Failed to kick user: ${response.error}`, 'error');
       }
     });
   };
@@ -52,7 +54,7 @@ const AdminControls = ({ roomId, users }) => {
         setShowBanModal(false);
         setSelectedUser(null);
       } else {
-        alert(`Failed to ban user: ${response.error}`);
+        push(`Failed to ban user: ${response.error}`, 'error');
       }
     });
   };

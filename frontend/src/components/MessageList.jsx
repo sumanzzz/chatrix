@@ -44,7 +44,7 @@ const MessageList = ({ messages, currentUser }) => {
         <div key={date}>
           {/* Date Separator */}
           <div className="flex items-center justify-center my-4">
-            <div className="bg-chatrix-darker-red border border-chatrix-border rounded-full px-3 py-1">
+            <div className="bg-chatrix-darker border border-chatrix-border rounded-full px-3 py-1">
               <span className="text-chatrix-text text-sm font-medium">
                 {formatDate(dateMessages[0].timestamp)}
               </span>
@@ -79,7 +79,7 @@ const MessageList = ({ messages, currentUser }) => {
                     {/* Avatar */}
                     {showAvatar && !isCurrentUser && (
                       <div className="flex-shrink-0 mr-2">
-                        <div className="w-8 h-8 bg-chatrix-darker-red border border-chatrix-border rounded-full flex items-center justify-center">
+                        <div className="w-8 h-8 bg-chatrix-darker border border-chatrix-border rounded-full flex items-center justify-center">
                           <User className="w-4 h-4 text-chatrix-text" />
                         </div>
                       </div>
@@ -99,8 +99,8 @@ const MessageList = ({ messages, currentUser }) => {
                       <div
                         className={`chatrix-message ${
                           isCurrentUser
-                            ? 'bg-chatrix-darker-red border-chatrix-text'
-                            : 'bg-chatrix-dark-red border-chatrix-border'
+                            ? 'bg-chatrix-primary-dark border-chatrix-border'
+                            : 'bg-chatrix-primary border-chatrix-border'
                         } ${
                           showAvatar ? 'mt-0' : 'mt-1'
                         }`}

@@ -130,14 +130,14 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
               {formData.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="chatrix-tag bg-chatrix-text text-chatrix-darker-red flex items-center"
+                  className="chatrix-tag bg-chatrix-text text-chatrix-darker flex items-center"
                 >
                   <Tag className="w-3 h-3 mr-1" />
                   {tag}
                   <button
                     type="button"
                     onClick={() => handleRemoveTag(tag)}
-                    className="ml-1 hover:bg-chatrix-darker-red hover:text-chatrix-text rounded-full p-0.5"
+                    className="ml-1 hover:bg-chatrix-darker hover:text-chatrix-text rounded-full p-0.5"
                   >
                     ×
                   </button>
@@ -178,7 +178,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
               name="locked"
               checked={formData.locked}
               onChange={handleInputChange}
-              className="w-4 h-4 text-chatrix-darker-red bg-chatrix-darker-red border-chatrix-border rounded focus:ring-chatrix-text"
+              className="w-4 h-4 text-chatrix-darker bg-chatrix-darker border-chatrix-border rounded focus:ring-chatrix-text"
             />
             <div className="flex items-center text-chatrix-text">
               <Lock className="w-4 h-4 mr-2" />
@@ -213,7 +213,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
 
         {/* Error Message */}
         {error && (
-          <div className="chatrix-notification bg-red-600 border-red-400">
+          <div className="chatrix-notification bg-blue-700 border-blue-400">
             {error}
           </div>
         )}
@@ -249,7 +249,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
 
       {/* Preview */}
       {formData.name && (
-        <div className="mt-8 p-4 bg-chatrix-darker-red border border-chatrix-border rounded-lg">
+        <div className="mt-8 p-4 bg-chatrix-darker border border-chatrix-border rounded-lg">
           <h3 className="text-chatrix-text font-medium mb-2">Room Preview</h3>
           <div className="space-y-2">
             <div className="flex items-center justify-between">

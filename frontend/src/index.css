@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables for Chatrix Dark Theme */
+/* CSS Variables for Chatrix Dark Theme (Blue/White variant) */
 :root {
   --bg: #0b0b0b;
-  --red-100: #ff3b3b;
-  --red-200: #c10a0a;
-  --red-300: #8b0000;
-  --text-on-red: #ffffff;
+  --primary-100: #3b82f6; /* blue-500 */
+  --primary-200: #1e3a8a; /* blue-900 for card bg */
+  --primary-300: #0b5ed7; /* deeper blue */
+  --text-on-primary: #ffffff;
   --chatrix-shadow: rgba(0, 0, 0, 0.5);
-  --chatrix-border: #ff6666; /* kept for spinner */
+  --chatrix-border: #60a5fa;
 }
 
 /* Global Styles */
@@ -22,7 +22,7 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg);
-  color: var(--text-on-red);
+  color: var(--text-on-primary);
   overflow-x: hidden;
 }
 
@@ -37,41 +37,41 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--red-100);
+  background: var(--primary-100);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-on-red);
+  background: var(--text-on-primary);
 }
 
 /* Custom Components */
 @layer components {
   .chatrix-card {
-    background: var(--red-200);
+    background: var(--primary-200);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 0.75rem;
     box-shadow: 0 10px 25px var(--chatrix-shadow);
   }
   
   .chatrix-button {
-    background: var(--red-300);
-    color: var(--text-on-red);
+    background: var(--primary-300);
+    color: var(--text-on-primary);
     font-weight: 600;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     border: 1px solid rgba(255,255,255,0.15);
     transition: all 0.2s ease;
   }
-  .chatrix-button:hover { background: var(--red-100); box-shadow: 0 8px 20px var(--chatrix-shadow); }
+  .chatrix-button:hover { background: var(--primary-100); box-shadow: 0 8px 20px var(--chatrix-shadow); }
   
   .chatrix-button-secondary {
     background: transparent;
-    color: var(--text-on-red);
+    color: var(--text-on-primary);
     font-weight: 600;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    border: 2px solid var(--text-on-red);
+    border: 2px solid var(--text-on-primary);
     transition: all 0.2s ease;
   }
   .chatrix-button-secondary:hover { background: rgba(255,255,255,0.08); }
@@ -79,16 +79,16 @@ body {
   .chatrix-input {
     background: #1a1a1a;
     border: 2px solid rgba(255,255,255,0.12);
-    color: var(--text-on-red);
+    color: var(--text-on-primary);
     border-radius: 0.5rem;
     padding: 0.5rem 0.75rem;
     transition: border-color 0.2s ease;
   }
   .chatrix-input::placeholder { color: rgba(255,255,255,0.55); }
-  .chatrix-input:focus { outline: none; border-color: var(--text-on-red); }
+  .chatrix-input:focus { outline: none; border-color: var(--text-on-primary); }
   
   .chatrix-message {
-    background: var(--red-300);
+    background: var(--primary-300);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 0.5rem;
     padding: 0.75rem;
@@ -97,7 +97,7 @@ body {
   }
   
   .chatrix-room-card {
-    background: linear-gradient(180deg, #1a1a1a 0%, var(--red-200) 100%);
+    background: linear-gradient(180deg, #1a1a1a 0%, var(--primary-200) 100%);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 0.75rem;
     padding: 1rem;
@@ -106,15 +106,15 @@ body {
     box-shadow: 0 12px 30px var(--chatrix-shadow);
     transform: perspective(800px) rotateX(2deg);
   }
-  .chatrix-room-card:hover { transform: perspective(800px) rotateX(0deg) translateY(-2px); border-color: var(--red-100); box-shadow: 0 16px 40px var(--chatrix-shadow); }
+  .chatrix-room-card:hover { transform: perspective(800px) rotateX(0deg) translateY(-2px); border-color: var(--primary-100); box-shadow: 0 16px 40px var(--chatrix-shadow); }
   .chatrix-room-card.pulse { animation: breathe 2.5s ease-in-out infinite; }
   
   .chatrix-tag {
-    background: #1a1a1a; color: var(--text-on-red); padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.12);
+    background: #1a1a1a; color: var(--text-on-primary); padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.12);
   }
   
   .chatrix-notification {
-    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.12); color: var(--text-on-red); padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; animation: fadeIn 0.3s ease-in-out;
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.12); color: var(--text-on-primary); padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; animation: fadeIn 0.3s ease-in-out;
   }
 }
 
@@ -142,8 +142,8 @@ body {
   animation: slideUp 0.3s ease-out;
 }
 
-.animate-pulse-red {
-  animation: pulseRed 2s infinite;
+.animate-pulse-blue {
+  animation: pulseBlue 2s infinite;
 }
 
 /* Message animations */
