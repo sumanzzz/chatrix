@@ -29,9 +29,25 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
+  origin: process.env.NODE_ENV === 'production'
     ? ['https://yourdomain.com'] // Replace with your production domain
-    : ['http://localhost:3001', 'http://127.0.0.1:3001'],
+    : (origin, callback) => {
+        // Allow common local dev ports (Vite: 5173/5174, CRA: 3000/3001)
+        const allowed = [
+          'http://localhost:5173',
+          'http://127.0.0.1:5173',
+          'http://localhost:5174',
+          'http://127.0.0.1:5174',
+          'http://localhost:3000',
+          'http://127.0.0.1:3000',
+          'http://localhost:3001',
+          'http://127.0.0.1:3001'
+        ];
+        if (!origin || allowed.includes(origin)) {
+          return callback(null, true);
+        }
+        return callback(null, false);
+      },
   credentials: true
 };
 

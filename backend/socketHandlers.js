@@ -212,7 +212,7 @@ export function setupSocketHandlers(io) {
           return callback({ success: false, error: 'Not in this room' });
         }
 
-        const result = roomManager.addMessage(roomId, socket.id, text.trim());
+        const result = roomManager.addMessage(roomId, socket.id, text.trim(), data.clientTempId);
         
         if (!result.success) {
           return callback(result);

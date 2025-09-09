@@ -39,7 +39,18 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
 
     const handleMessage = (data) => {
       if (data.roomId === room.id) {
-        setMessages(prev => [...prev, data.message]);
+        setMessages(prev => {
+          // If we have an optimistic message with temp id, replace it
+          const idx = prev.findIndex(m => m.id && data.message.clientTempId && m.id === data.message.clientTempId);
+          if (idx !== -1) {
+            const clone = prev.slice();
+            clone[idx] = data.message;
+            return clone;
+          }
+          // Avoid duplicates (same id already present)
+          if (prev.some(m => m.id === data.message.id)) return prev;
+          return [...prev, data.message];
+        });
       }
     };
 
@@ -177,7 +188,7 @@ const ChatRoom = ({ room, userName, onLeaveRoom }) => {
     };
     setMessages(prev => [...prev, optimistic]);
 
-    socket.emit('send_message', { roomId: room.id, text: newMessage.trim() }, (response) => {
+    socket.emit('send_message', { roomId: room.id, text: newMessage.trim(), clientTempId: optimistic.id }, (response) => {
       if (!response?.success) {
         // remove optimistic and notify
         setMessages(prev => prev.filter(m => m.id !== optimistic.id));

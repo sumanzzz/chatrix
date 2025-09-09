@@ -83,15 +83,15 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
       <div className="mb-8">
         <button
           onClick={onBack}
-          className="flex items-center text-chatrix-text text-opacity-70 hover:text-chatrix-text mb-4 transition-colors"
+          className="flex items-center text-gray-700 hover:text-gray-900 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Rooms
         </button>
-        <h2 className="text-3xl font-bold text-chatrix-text mb-2">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Create New Room
         </h2>
-        <p className="text-chatrix-text text-opacity-80">
+        <p className="text-gray-700">
           Set up your own chat room and invite others to join
         </p>
       </div>
@@ -100,7 +100,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Room Name */}
         <div>
-          <label className="block text-chatrix-text font-medium mb-2">
+          <label className="block text-gray-900 font-medium mb-2">
             Room Name *
           </label>
           <input
@@ -113,14 +113,14 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
             maxLength={50}
             required
           />
-          <p className="text-chatrix-text text-opacity-60 text-sm mt-1">
+          <p className="text-gray-600 text-sm mt-1">
             {formData.name.length}/50 characters
           </p>
         </div>
 
         {/* Tags */}
         <div>
-          <label className="block text-chatrix-text font-medium mb-2">
+          <label className="block text-gray-900 font-medium mb-2">
             Tags (Optional)
           </label>
           
@@ -165,14 +165,14 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
               Add Tag
             </button>
           </div>
-          <p className="text-chatrix-text text-opacity-60 text-sm mt-1">
+          <p className="text-gray-600 text-sm mt-1">
             {formData.tags.length}/10 tags • Helps others find your room
           </p>
         </div>
 
         {/* Lock Room */}
         <div>
-          <label className="flex items-center space-x-3">
+          <label className="flex items-center space-x-3 text-gray-900">
             <input
               type="checkbox"
               name="locked"
@@ -180,12 +180,12 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
               onChange={handleInputChange}
               className="w-4 h-4 text-chatrix-darker bg-chatrix-darker border-chatrix-border rounded focus:ring-chatrix-text"
             />
-            <div className="flex items-center text-chatrix-text">
+            <div className="flex items-center text-gray-900">
               <Lock className="w-4 h-4 mr-2" />
               <span className="font-medium">Lock this room</span>
             </div>
           </label>
-          <p className="text-chatrix-text text-opacity-60 text-sm mt-1 ml-7">
+          <p className="text-gray-600 text-sm mt-1 ml-7">
             Require a password for others to join
           </p>
         </div>
@@ -193,7 +193,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
         {/* Password Field */}
         {formData.locked && (
           <div>
-            <label className="block text-chatrix-text font-medium mb-2">
+            <label className="block text-gray-900 font-medium mb-2">
               Room Password *
             </label>
             <input
@@ -205,7 +205,7 @@ const CreateRoom = ({ onRoomCreated, onBack }) => {
               className="chatrix-input w-full"
               required={formData.locked}
             />
-            <p className="text-chatrix-text text-opacity-60 text-sm mt-1">
+            <p className="text-gray-600 text-sm mt-1">
               Share this password with people you want to invite
             </p>
           </div>

@@ -73,19 +73,19 @@ const App = () => {
       <ToasterProvider>
         <RoomProvider>
           <VoiceProvider>
-          <div className="min-h-screen bg-[#0b0b0b]">
+          <div className="min-h-screen bg-white">
             {/* Header */}
-            <header className="bg-chatrix-darker border-b-2 border-chatrix-border">
+            <header className="bg-chatrix-primary border-b-2 border-chatrix-border">
               <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-bold text-chatrix-text">
+                  <h1 className="text-2xl font-bold text-white">
                     Chatrix
                   </h1>
                   <div className="flex items-center space-x-4">
                     {currentView === 'chat' && (
                       <button
                         onClick={handleLeaveRoom}
-                        className="chatrix-button-secondary"
+                        className="chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
                       >
                         Leave Room
                       </button>
@@ -93,7 +93,7 @@ const App = () => {
                     {currentView === 'create' && (
                       <button
                         onClick={handleBackToRooms}
-                        className="chatrix-button-secondary"
+                        className="chatrix-button-secondary bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
                       >
                         Back to Rooms
                       </button>
@@ -101,7 +101,7 @@ const App = () => {
                     {currentView === 'rooms' && (
                       <button
                         onClick={handleCreateRoom}
-                        className="chatrix-button"
+                        className="chatrix-button bg-white text-chatrix-primary border-chatrix-primary hover:bg-blue-50"
                       >
                         Create Room
                       </button>
@@ -128,14 +128,6 @@ const App = () => {
               )}
             </main>
 
-            {/* Footer */}
-            <footer className="bg-chatrix-darker border-t-2 border-chatrix-border mt-auto">
-              <div className="container mx-auto px-4 py-4">
-                <p className="text-center text-chatrix-text text-sm">
-                  Chatrix - Real-time Anonymous Chatrooms | No signup required
-                </p>
-              </div>
-            </footer>
           </div>
           </VoiceProvider>
         </RoomProvider>

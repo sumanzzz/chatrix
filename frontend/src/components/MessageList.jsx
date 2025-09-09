@@ -44,8 +44,8 @@ const MessageList = ({ messages, currentUser }) => {
         <div key={date}>
           {/* Date Separator */}
           <div className="flex items-center justify-center my-4">
-            <div className="bg-chatrix-darker border border-chatrix-border rounded-full px-3 py-1">
-              <span className="text-chatrix-text text-sm font-medium">
+            <div className="bg-gray-100 border border-gray-300 rounded-full px-3 py-1">
+              <span className="text-gray-800 text-sm font-medium">
                 {formatDate(dateMessages[0].timestamp)}
               </span>
             </div>
@@ -79,8 +79,8 @@ const MessageList = ({ messages, currentUser }) => {
                     {/* Avatar */}
                     {showAvatar && !isCurrentUser && (
                       <div className="flex-shrink-0 mr-2">
-                        <div className="w-8 h-8 bg-chatrix-darker border border-chatrix-border rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-chatrix-text" />
+                        <div className="w-8 h-8 bg-blue-100 border border-blue-300 rounded-full flex items-center justify-center">
+                          <User className="w-4 h-4 text-blue-700" />
                         </div>
                       </div>
                     )}
@@ -105,7 +105,7 @@ const MessageList = ({ messages, currentUser }) => {
                           showAvatar ? 'mt-0' : 'mt-1'
                         }`}
                       >
-                        <div className="text-chatrix-text whitespace-pre-wrap break-words">
+                        <div className="text-black whitespace-pre-wrap break-words">
                           {message.text}
                         </div>
                       </div>
@@ -124,7 +124,7 @@ const MessageList = ({ messages, currentUser }) => {
                     {/* Avatar for current user */}
                     {showAvatar && isCurrentUser && (
                       <div className="flex-shrink-0 ml-2">
-                        <div className="w-8 h-8 bg-chatrix-text text-chatrix-darker-red border border-chatrix-border rounded-full flex items-center justify-center font-bold text-sm">
+                        <div className="w-8 h-8 bg-chatrix-text text-chatrix-primary border border-chatrix-border rounded-full flex items-center justify-center font-bold text-sm">
                           {message.from.charAt(message.from.length - 1)}
                         </div>
                       </div>

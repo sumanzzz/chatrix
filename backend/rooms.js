@@ -260,7 +260,7 @@ class RoomManager {
   /**
    * Add message to room
    */
-  addMessage(roomId, socketId, text) {
+  addMessage(roomId, socketId, text, clientTempId = null) {
     const room = this.rooms.get(roomId);
     if (!room) {
       return { success: false, error: 'Room not found' };
@@ -276,7 +276,8 @@ class RoomManager {
       from: user.anonName,
       text: this.escapeHtml(text),
       timestamp: new Date(),
-      socketId
+      socketId,
+      clientTempId: clientTempId || undefined
     };
 
     room.messages.push(message);

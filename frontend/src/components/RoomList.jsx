@@ -88,10 +88,10 @@ const RoomList = ({ onJoinRoom }) => {
     <div className="max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-chatrix-text mb-2">
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Join a Chat Room
         </h2>
-        <p className="text-chatrix-text text-opacity-80">
+        <p className="text-gray-700">
           Choose from {rooms.length} available rooms or create your own
         </p>
       </div>
@@ -121,7 +121,7 @@ const RoomList = ({ onJoinRoom }) => {
 
       {/* Error Message */}
       {error && (
-        <div className="chatrix-notification mb-6 bg-blue-700 border-blue-400">
+        <div className="chatrix-notification mb-6">
           {error}
         </div>
       )}
@@ -131,7 +131,7 @@ const RoomList = ({ onJoinRoom }) => {
         {rooms.map((room) => (
           <div
             key={room.id}
-            className={`chatrix-room-card animate-fade-in ${room.userCount > 0 ? 'pulse' : ''}`}
+            className={`chatrix-room-card ${room.userCount > 0 ? '' : ''}`}
             onClick={() => handleJoinRoom(room)}
           >
             {/* Door number badge */}
