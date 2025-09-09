@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for Chatrix Dark Theme */
+:root {
+  --bg: #0b0b0b;
+  --red-100: #ff3b3b;
+  --red-200: #c10a0a;
+  --red-300: #8b0000;
+  --text-on-red: #ffffff;
+  --chatrix-shadow: rgba(0, 0, 0, 0.5);
+  --chatrix-border: #ff6666; /* kept for spinner */
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-on-red);
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--red-100);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-on-red);
+}
+
+/* Custom Components */
+@layer components {
+  .chatrix-card {
+    background: var(--red-200);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px var(--chatrix-shadow);
+  }
+  
+  .chatrix-button {
+    background: var(--red-300);
+    color: var(--text-on-red);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.2s ease;
+  }
+  .chatrix-button:hover { background: var(--red-100); box-shadow: 0 8px 20px var(--chatrix-shadow); }
+  
+  .chatrix-button-secondary {
+    background: transparent;
+    color: var(--text-on-red);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--text-on-red);
+    transition: all 0.2s ease;
+  }
+  .chatrix-button-secondary:hover { background: rgba(255,255,255,0.08); }
+  
+  .chatrix-input {
+    background: #1a1a1a;
+    border: 2px solid rgba(255,255,255,0.12);
+    color: var(--text-on-red);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.2s ease;
+  }
+  .chatrix-input::placeholder { color: rgba(255,255,255,0.55); }
+  .chatrix-input:focus { outline: none; border-color: var(--text-on-red); }
+  
+  .chatrix-message {
+    background: var(--red-300);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 4px 10px var(--chatrix-shadow);
+  }
+  
+  .chatrix-room-card {
+    background: linear-gradient(180deg, #1a1a1a 0%, var(--red-200) 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 12px 30px var(--chatrix-shadow);
+    transform: perspective(800px) rotateX(2deg);
+  }
+  .chatrix-room-card:hover { transform: perspective(800px) rotateX(0deg) translateY(-2px); border-color: var(--red-100); box-shadow: 0 16px 40px var(--chatrix-shadow); }
+  .chatrix-room-card.pulse { animation: breathe 2.5s ease-in-out infinite; }
+  
+  .chatrix-tag {
+    background: #1a1a1a; color: var(--text-on-red); padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; border: 1px solid rgba(255,255,255,0.12);
+  }
+  
+  .chatrix-notification {
+    background: #1a1a1a; border: 1px solid rgba(255,255,255,0.12); color: var(--text-on-red); padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: perspective(800px) rotateX(2deg); }
+  50% { transform: perspective(800px) rotateX(0deg) translateY(-2px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-pulse-red {
+  animation: pulseRed 2s infinite;
+}
+
+/* Message animations */
+.message-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.message-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Room list animations */
+.room-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.room-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid var(--chatrix-border);
+  border-top: 2px solid var(--chatrix-text);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Voice indicator */
+.voice-indicator {
+  @apply bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse;
+}
+
+.voice-muted {
+  @apply bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-bold;
+}
+
+/* Admin controls */
+.admin-controls {
+  @apply border-2 border-yellow-400 bg-yellow-900 bg-opacity-20;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chatrix-card {
+    @apply mx-2;
+  }
+  
+  .chatrix-room-card {
+    @apply p-3;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+select:focus {
+  @apply outline-none ring-2 ring-chatrix-text ring-opacity-50;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .chatrix-card {
+    @apply border-4;
+  }
+  
+  .chatrix-button {
+    @apply border-2;
+  }
+}
